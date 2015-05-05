@@ -1,0 +1,6 @@
+
+
+run:
+	javac *.java
+	java Main
+	# rm *.class ##Mayhaps get rid of to speed up initial compile time? Look into further 

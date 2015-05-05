@@ -1,0 +1,44 @@
+import java.util.Vector;
+import java.util.Scanner;
+import java.io.*;
+
+public class Dictionary {
+	private Vector<Word> words = new Vector<Word>();
+    
+	public Dictionary(String fileSource) throws IOException{
+		Scanner in = null;
+		String theWord;
+		int theDifficulty;
+
+		try {
+			in  = new Scanner(new BufferedReader(new FileReader(fileSource)));
+			while (in.hasNextLine()){
+				theWord = in.next();
+				theDifficulty = in.nextInt();	
+				words.add(new Word(theWord,theDifficulty));			
+
+				in.nextLine();
+			}			
+		}finally{
+			in.close();
+		}			
+	}
+	public void printWord(){
+		if (!words.isEmpty()){
+			for (int i=0;i<3;i++){
+				System.out.println("Your dictionary has: "+words.get(i).getWord());
+			}
+			
+		}
+		else System.out.println("Your dictionary stinks");
+	}
+	public void testWord(String guess){
+		System.out.println(guess + "=>\nDirect Matches = " + words.get(0).directMatches(guess) + "\nIndirect Matches = " + words.get(0).indirectMatches(guess));
+	}
+	public Word setAnswer(){
+		int randIndex = (int) (Math.random() * (words.size()-1));
+		Word answer = words.get(randIndex); 
+
+		return answer;
+	}
+}
